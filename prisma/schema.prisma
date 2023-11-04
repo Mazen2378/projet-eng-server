@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Question {
+  id        Int     @id @default(autoincrement())
+  prompt String
+  options String[]
+  answers Answer[]
+}
+
+model Answer {
+  id        Int     @id @default(autoincrement())
+  questionId Int
+  question Question @relation(fields: [questionId],references: [id])
+  content String
+  age Int
+  sex String
+  location String
+}
+
